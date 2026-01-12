@@ -28,3 +28,5 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: REACT_APP_API_URL
+        value: https://multi-modal-prompt-refinement-system-ni9a.onrender.com
