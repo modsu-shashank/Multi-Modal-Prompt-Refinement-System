@@ -12,7 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://your-frontend-name.onrender.com",
+      "https://multi-modal-prompt-refinement-system-1.onrender.com",
       "http://localhost:3000",
     ],
     credentials: true,
