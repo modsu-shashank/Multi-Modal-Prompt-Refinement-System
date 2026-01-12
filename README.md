@@ -193,11 +193,3 @@ The system includes comprehensive error handling:
 - Batch processing capabilities
 - Export refined prompts to various formats (JSON, XML, Markdown)
 
-## License
-
-MIT
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
