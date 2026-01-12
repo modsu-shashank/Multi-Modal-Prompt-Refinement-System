@@ -1,0 +1,23 @@
+services:
+  - type: web_service
+    name: prompt-refinement-backend
+    env: node
+    region: oregon
+    plan: free
+    repo: modsus-shashank/Multi-Modal-Prompt-Refinement-System
+    branch: master
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: PORT
+        value: 10000
+
+  - type: static_site
+    name: prompt-refinement-frontend
+    env: static
+    region: oregon
+    plan: free
+    repo: modsus-shashank/Multi-Modal-Prompt-Refinement-System
+    branch: master
+    buildCommand: cd frontend && npm install && npm run build
+    publishPath: frontend/build
