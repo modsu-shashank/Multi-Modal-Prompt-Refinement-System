@@ -6,11 +6,14 @@ services:
     plan: free
     repo: modsus-shashank/Multi-Modal-Prompt-Refinement-System
     branch: master
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    root: backend
+    buildCommand: npm ci
+    startCommand: npm start
     envVars:
       - key: PORT
         value: 10000
+      - key: NODE_ENV
+        value: production
 
   - type: static_site
     name: prompt-refinement-frontend
@@ -19,5 +22,9 @@ services:
     plan: free
     repo: modsus-shashank/Multi-Modal-Prompt-Refinement-System
     branch: master
-    buildCommand: cd frontend && npm install && npm run build
-    publishPath: frontend/build
+    root: frontend
+    buildCommand: npm ci && npm run build
+    publishPath: build
+    envVars:
+      - key: NODE_ENV
+        value: production
