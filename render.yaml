@@ -22,9 +22,9 @@ services:
     plan: free
     repo: modsus-shashank/Multi-Modal-Prompt-Refinement-System
     branch: master
-    # run build from repository root to avoid dashboard/root conflicts
-    buildCommand: cd frontend && npm ci && npm run build
-    publishPath: frontend/build
+    root: frontend
+    buildCommand: npm ci && npm run build
+    publishPath: build
     envVars:
       - key: NODE_ENV
         value: production
