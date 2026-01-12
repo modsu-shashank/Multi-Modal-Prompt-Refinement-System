@@ -1,66 +1,73 @@
-import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import './FileUpload.css';
+import React, { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "./FileUpload.css";
 
 // Use REACT_APP_API_URL (set in Render or .env) or default to localhost for local dev
-const API_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+const API_URL = (
+  process.env.REACT_APP_API_URL || "http://localhost:5000"
+).replace(/\/$/, "");
 
 const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
-  const [textContent, setTextContent] = useState('');
+  const [textContent, setTextContent] = useState("");
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
 
   const onImageDrop = useCallback((acceptedFiles) => {
-    const imageFiles = acceptedFiles.filter(file => 
-      file.type.startsWith('image/')
+    const imageFiles = acceptedFiles.filter((file) =>
+      file.type.startsWith("image/")
     );
-    setImages(prev => [...prev, ...imageFiles]);
+    setImages((prev) => [...prev, ...imageFiles]);
     toast.success(`${imageFiles.length} image(s) added`);
   }, []);
 
   const onDocumentDrop = useCallback((acceptedFiles) => {
-    const docFiles = acceptedFiles.filter(file => 
-      file.type === 'application/pdf' || 
-      file.type === 'application/msword' ||
-      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    const docFiles = acceptedFiles.filter(
+      (file) =>
+        file.type === "application/pdf" ||
+        file.type === "application/msword" ||
+        file.type ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     );
-    setDocuments(prev => [...prev, ...docFiles]);
+    setDocuments((prev) => [...prev, ...docFiles]);
     toast.success(`${docFiles.length} document(s) added`);
   }, []);
 
   const {
     getRootProps: getImageRootProps,
     getInputProps: getImageInputProps,
-    isDragActive: isImageDragActive
+    isDragActive: isImageDragActive,
   } = useDropzone({
     onDrop: onImageDrop,
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif']
+      "image/*": [".jpeg", ".jpg", ".png", ".gif"],
     },
-    multiple: true
+    multiple: true,
   });
 
   const {
     getRootProps: getDocRootProps,
     getInputProps: getDocInputProps,
-    isDragActive: isDocDragActive
+    isDragActive: isDocDragActive,
   } = useDropzone({
     onDrop: onDocumentDrop,
     accept: {
-      'application/pdf': ['.pdf'],
-      'application/msword': ['.doc'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+      "application/pdf": [".pdf"],
+      "application/msword": [".doc"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
     },
-    multiple: true
+    multiple: true,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!textContent.trim() && images.length === 0 && documents.length === 0) {
-      toast.error('Please provide at least one input (text, image, or document)');
+      toast.error(
+        "Please provide at least one input (text, image, or document)"
+      );
       return;
     }
 
@@ -68,42 +75,50 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
     const formData = new FormData();
 
     if (textContent.trim()) {
-      formData.append('textContent', textContent);
+      formData.append("textContent", textContent);
     }
 
     images.forEach((image, index) => {
-      formData.append('images', image);
+      formData.append("images", image);
     });
 
     documents.forEach((doc, index) => {
-      formData.append('documents', doc);
+      formData.append("documents", doc);
     });
 
     try {
-      const response = await axios.post(`${API_URL}/api/prompt/refine`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      const response = await axios.post(
+        `${API_URL}/api/prompt/refine`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
+      );
 
       if (response.data.success) {
-        toast.success('Prompt refined successfully!');
+        toast.success("Prompt refined successfully!");
         onRefinementComplete(response.data.refinedPrompt);
         // Reset form
-        setTextContent('');
+        setTextContent("");
         setImages([]);
         setDocuments([]);
       }
     } catch (error) {
       // Improved error logging for debugging
       const serverMsg = error.response?.data || error.response?.data?.error;
-      const errorMessage = serverMsg?.error || serverMsg?.message || error.message || 'Failed to refine prompt';
+      const errorMessage =
+        serverMsg?.error ||
+        serverMsg?.message ||
+        error.message ||
+        "Failed to refine prompt";
       toast.error(errorMessage);
-      console.error('Refinement error: ', {
+      console.error("Refinement error: ", {
         message: errorMessage,
         status: error.response?.status,
         responseData: error.response?.data,
-        originalError: error.toString()
+        originalError: error.toString(),
       });
     } finally {
       setLoading(false);
@@ -111,11 +126,11 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
   };
 
   const removeImage = (index) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
+    setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const removeDocument = (index) => {
-    setDocuments(prev => prev.filter((_, i) => i !== index));
+    setDocuments((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -140,13 +155,13 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
           <label>Images (Sketches, Screenshots, Designs)</label>
           <div
             {...getImageRootProps()}
-            className={`dropzone ${isImageDragActive ? 'active' : ''}`}
+            className={`dropzone ${isImageDragActive ? "active" : ""}`}
           >
             <input {...getImageInputProps()} />
             <p>
               {isImageDragActive
-                ? 'Drop images here...'
-                : 'Drag & drop images here, or click to select'}
+                ? "Drop images here..."
+                : "Drag & drop images here, or click to select"}
             </p>
             <small>Supports: JPEG, PNG, GIF</small>
           </div>
@@ -173,13 +188,13 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
           <label>Documents (PDF, Word)</label>
           <div
             {...getDocRootProps()}
-            className={`dropzone ${isDocDragActive ? 'active' : ''}`}
+            className={`dropzone ${isDocDragActive ? "active" : ""}`}
           >
             <input {...getDocInputProps()} />
             <p>
               {isDocDragActive
-                ? 'Drop documents here...'
-                : 'Drag & drop documents here, or click to select'}
+                ? "Drop documents here..."
+                : "Drag & drop documents here, or click to select"}
             </p>
             <small>Supports: PDF, DOC, DOCX</small>
           </div>
@@ -201,12 +216,8 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
           )}
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="submit-btn"
-        >
-          {loading ? 'Processing...' : 'Refine Prompt'}
+        <button type="submit" disabled={loading} className="submit-btn">
+          {loading ? "Processing..." : "Refine Prompt"}
         </button>
       </form>
     </div>
@@ -214,4 +225,3 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
 };
 
 export default FileUpload;
-
