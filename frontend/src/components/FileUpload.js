@@ -4,7 +4,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import './FileUpload.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// Use REACT_APP_API_URL (set in Render or .env) or default to localhost for local dev
+const API_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
   const [textContent, setTextContent] = useState('');
@@ -79,7 +80,7 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
     });
 
     try {
-      const response = await axios.post(`${API_URL}/prompt/refine`, formData, {
+      const response = await axios.post(`${API_URL}/api/prompt/refine`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -94,9 +95,16 @@ const FileUpload = ({ onRefinementComplete, loading, setLoading }) => {
         setDocuments([]);
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.error || error.message || 'Failed to refine prompt';
+      // Improved error logging for debugging
+      const serverMsg = error.response?.data || error.response?.data?.error;
+      const errorMessage = serverMsg?.error || serverMsg?.message || error.message || 'Failed to refine prompt';
       toast.error(errorMessage);
-      console.error('Refinement error:', error);
+      console.error('Refinement error: ', {
+        message: errorMessage,
+        status: error.response?.status,
+        responseData: error.response?.data,
+        originalError: error.toString()
+      });
     } finally {
       setLoading(false);
     }
