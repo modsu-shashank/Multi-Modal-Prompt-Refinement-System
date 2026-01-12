@@ -1,0 +1,18 @@
+I want to build a mobile e-commerce application for iOS and Android platforms. The app should allow users to browse products by category, search for specific items, add products to their shopping cart, and complete purchases securely. 
+
+Key features include:
+- User authentication and profile management
+- Product catalog with images and descriptions
+- Shopping cart functionality
+- Secure payment processing via credit cards and PayPal
+- Order tracking and history
+- Push notifications for order updates
+
+The app must have a modern, minimalist design with a blue and white color scheme. It should be fast and responsive, loading product images quickly. The backend should use Node.js and MongoDB for data storage.
+
+Expected deliverables:
+1. Mobile app for iOS and Android
+2. Backend API
+3. Admin dashboard for product management
+4. Documentation
+

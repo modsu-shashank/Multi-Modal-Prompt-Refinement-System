@@ -1,0 +1,21 @@
+Create a web-based task management system using React and Node.js. The system should help teams collaborate on projects.
+
+Features needed:
+- Create, edit, and delete tasks
+- Assign tasks to team members
+- Set due dates and priorities
+- Track task status (todo, in progress, done)
+- Add comments and attachments to tasks
+- Create project boards with multiple columns
+- Real-time updates when team members make changes
+
+Technical requirements:
+- Frontend: React with TypeScript
+- Backend: Node.js with Express
+- Database: PostgreSQL
+- Real-time: WebSockets for live updates
+- Authentication: JWT tokens
+- Must be responsive and work on all modern browsers
+
+The UI should be clean and intuitive, similar to Trello or Asana. Users should be able to drag and drop tasks between columns.
+

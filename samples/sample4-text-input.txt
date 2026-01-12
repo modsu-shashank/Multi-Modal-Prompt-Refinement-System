@@ -1,0 +1,19 @@
+Build a fitness tracking mobile application that helps users monitor their health and fitness goals.
+
+Core functionality:
+- Log daily workouts (cardio, strength training, yoga, etc.)
+- Track calories consumed and burned
+- Monitor heart rate during exercises
+- Set and track fitness goals (weight loss, muscle gain, endurance)
+- View progress charts and statistics
+- Integration with wearable devices (Fitbit, Apple Watch)
+- Weekly progress reports via email
+
+The app should have a motivational design with vibrant colors. It needs to sync data across devices using cloud storage. Users should be able to share achievements on social media.
+
+Technical stack:
+- Native mobile app (React Native for cross-platform)
+- Cloud database for data sync
+- Integration APIs for wearable devices
+- Push notifications for workout reminders
+

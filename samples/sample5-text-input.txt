@@ -1,0 +1,23 @@
+Develop an online learning platform where students can take courses and instructors can create content.
+
+Student features:
+- Browse and enroll in courses
+- Watch video lectures
+- Take quizzes and assessments
+- Download course materials
+- Earn certificates upon completion
+- Participate in discussion forums
+- Track learning progress
+
+Instructor features:
+- Create and publish courses
+- Upload video content
+- Create quizzes and assignments
+- Monitor student progress and engagement
+- Respond to student questions
+- Generate reports on course performance
+
+The platform must support video streaming with adaptive bitrate. It should have a discussion forum for each course. Payment processing is needed for paid courses. The design should be professional and education-focused.
+
+Platform: Web-based, must work on desktop and tablet devices. Video player should support subtitles and playback speed control.
+

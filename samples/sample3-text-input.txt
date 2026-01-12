@@ -1,0 +1,20 @@
+Design and develop a restaurant reservation system. The system needs two interfaces:
+
+For customers:
+- Browse restaurant availability
+- Make online reservations
+- View menu items
+- Receive email confirmations
+- Cancel or modify reservations
+
+For restaurant staff:
+- View all reservations in a calendar
+- Accept or reject reservation requests
+- Manage table availability
+- Send reminder notifications
+- View customer history
+
+The system should support multiple restaurants and allow customers to filter by cuisine type, location, and price range. It must integrate with email services for sending confirmations and reminders.
+
+Platform: Web application accessible from desktop and mobile browsers. Should work on Chrome, Firefox, Safari, and Edge.
+
