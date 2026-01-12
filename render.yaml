@@ -24,7 +24,7 @@ services:
     branch: master
     root: frontend
     buildCommand: npm ci && npm run build
-    publishPath: build
+    publishPath: ./build
     envVars:
       - key: NODE_ENV
         value: production
